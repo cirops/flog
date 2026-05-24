@@ -1,0 +1,47 @@
+{
+  "name": "flog",
+  "version": "0.1.0",
+  "description": "A local JSON worklog CLI with Tempo push support.",
+  "type": "module",
+  "bin": {
+    "flog": "dist/cli.js"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    ".env.example",
+    "worklogs/.gitkeep"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsx src/cli.ts",
+    "test": "node --import tsx --test tests/*.test.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "keywords": [
+    "cli",
+    "worklog",
+    "tempo",
+    "timesheet"
+  ],
+  "license": "MIT",
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "@inquirer/prompts": "^7.5.3",
+    "cli-table3": "^0.6.5",
+    "commander": "^14.0.0",
+    "conf": "^14.0.0",
+    "dotenv": "^16.5.0",
+    "env-paths": "^3.0.0",
+    "ora": "^8.2.0",
+    "picocolors": "^1.1.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.21",
+    "tsup": "^8.4.0",
+    "tsx": "^4.19.4",
+    "typescript": "^5.8.3"
+  }
+}
