@@ -36,7 +36,8 @@
     "dotenv": "^16.5.0",
     "env-paths": "^3.0.0",
     "ora": "^8.2.0",
-    "picocolors": "^1.1.1"
+    "picocolors": "^1.1.1",
+    "undici": "^6.26.0"
   },
   "devDependencies": {
     "@types/node": "^22.15.21",

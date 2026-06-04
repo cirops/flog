@@ -64,45 +64,59 @@ flog week 2026-W21
 
 ## Tempo
 
-Run setup for non-secret local defaults:
-
 ```bash
-flog setup
-```
-
-Copy `.env.example` to `.env` and set `TEMPO_TOKEN`. You can also set these in the shell:
-
-```bash
-TEMPO_TOKEN=
-TEMPO_ISSUE_ID=
-TEMPO_AUTHOR_ACCOUNT_ID=
-TEMPO_ISSUE_KEY=
-```
-
-Review before pushing:
-
-```bash
+flog setup           # interactive: writes Conf store + edits .env for secrets
+flog doctor          # prints effective config with the source of each value
 flog review day 2026-05-23
-flog review day --date 2026-05-23
-flog review week 2026-W21
 flog push day 2026-05-23
-flog push day --date 2026-05-23
+flog sync day 2026-05-23
 ```
 
 Tempo submissions create one worklog per active period. A morning block with three activities becomes one Tempo worklog whose description lists all three activities. Successful submissions are recorded in append-only JSONL at `worklogs/submissions.jsonl`; repeated pushes are skipped by duplicate key unless `--force` is used.
 
 ## Configuration
 
-Local config is managed with `conf`. Secrets belong in `.env` or the shell environment, not in the config store.
+`flog` keeps two configuration channels and one bootstrap channel:
 
-Useful environment variables:
+1. **`.env` — secrets only.** `TEMPO_TOKEN` lives here. `FLOG_CA_BUNDLE` lives
+   here too (path to a CA bundle for corporate MITM proxies).
+2. **Conf store — everything else.** Tempo issue/author/format/billableMode,
+   default block times, daily target hours and the worklog data directory.
+   Edit with `flog setup` (interactive) or directly in
+   `~/.config/flog-nodejs/config.json` on Linux.
+3. **Bootstrap env vars.** `FLOG_DATA_DIR`, `FLOG_CONFIG_DIR`, `FLOG_ENV_FILE`
+   tell `flog` where the config files live (mostly for tests).
+
+Older releases let you override Tempo settings via `TEMPO_*` env vars. Those
+are now ignored — `flog doctor` will flag any that are still set so you can
+remove them, and `flog setup` will offer to migrate the values into the Conf
+store.
+
+`flog` looks for `.env` in (in order): `FLOG_ENV_FILE`, the flog install root,
+`~/.flog/.env`, and finally `$PWD/.env`. The default `worklogs/` directory sits
+next to the flog install, so the CLI works from any directory.
+
+### Corporate TLS / Zscaler
+
+If your environment uses a MITM proxy (e.g. Zscaler on WSL), set `FLOG_CA_BUNDLE`
+in your `.env` to the path of the CA bundle. `flog` will pass it to the HTTP
+client used for Tempo requests, so the shell alias does not need
+`NODE_EXTRA_CA_CERTS`:
 
 ```bash
-FLOG_DATA_DIR=./worklogs
-FLOG_CONFIG_DIR=./.flog-config
-FLOG_ENV_FILE=./.env
-TEMPO_TOKEN=
+alias flog='node /home/you/flog/dist/cli.js'
 ```
+
+### Debugging configuration
+
+```bash
+flog doctor
+```
+
+prints the effective configuration with a `[env]`, `[conf]`, `[default]`, or
+`[missing]` tag next to every value, plus the resolved `.env` path, Conf store
+path, and worklog data directory. Use this first when something is not picking
+up the value you expect.
 
 ## Development
 
