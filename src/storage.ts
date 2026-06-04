@@ -49,11 +49,8 @@ export async function addActivity(
   config: FlogConfig,
   now = new Date()
 ): Promise<DayWorklog> {
-  if (!id.trim()) {
-    throw new Error("Activity id is required.");
-  }
   if (!description.trim()) {
-    throw new Error("Activity description is required.");
+    throw new Error("Activity content is required.");
   }
   const day = await readDay(dataDir, date, config);
   day[period].activities.push({
