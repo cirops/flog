@@ -174,12 +174,12 @@ T12
 
 **Done when**:
 
-- [ ] Empty/whitespace raw throws
-- [ ] No match → `"no-match"` and no write
-- [ ] Match → append and `"captured"`
-- [ ] Duplicate pending raw → `"duplicate"`
-- [ ] Unit tests in `tests/captures-capture.test.ts` cover empty, no-match, captured, duplicate
-- [ ] Gate check passes: `npm test`
+- [x] Empty/whitespace raw throws
+- [x] No match → `"no-match"` and no write
+- [x] Match → append and `"captured"`
+- [x] Duplicate pending raw → `"duplicate"`
+- [x] Unit tests in `tests/captures-capture.test.ts` cover empty, no-match, captured, duplicate
+- [x] Gate check passes: `npm test`
 
 **Tests**: unit
 **Gate**: quick
