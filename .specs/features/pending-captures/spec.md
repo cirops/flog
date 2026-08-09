@@ -119,20 +119,20 @@ Manual `flog m` / `flog a` works, but starting work often begins with a shell co
 | CAP-01 | P1: Capture matching commands | Design | Implementing |
 | CAP-02 | P1: Capture matching commands | Design | Pending |
 | CAP-03 | P1: Capture matching commands | Design | Pending |
-| CAP-04 | P1: Capture matching commands | Design | Pending |
+| CAP-04 | P1: Capture matching commands | Design | Verified |
 | CAP-05 | P1: Capture matching commands | Design | Verified |
 | CAP-06 | P1: Capture matching commands | Design | Verified |
 | CAP-07 | P1: Capture matching commands | Design | Pending |
 | CAP-08 | P1: Capture matching commands | Design | Pending |
-| CAP-09 | P1: Capture matching commands | Design | Implementing |
+| CAP-09 | P1: Capture matching commands | Design | Verified |
 | PEND-01 | P1: Triage pending into activities | Design | Pending |
 | PEND-02 | P1: Triage pending into activities | Design | Pending |
 | PEND-03 | P1: Triage pending into activities | Design | Pending |
 | PEND-04 | P1: Triage pending into activities | Design | Pending |
 | PEND-05 | P1: Triage pending into activities | Design | Pending |
-| PEND-06 | P1: Triage pending into activities | Design | Pending |
-| PEND-07 | P1: Triage pending into activities | Design | Pending |
-| PEND-08 | P1: Triage pending into activities | Design | Pending |
+| PEND-06 | P1: Triage pending into activities | Design | Implementing |
+| PEND-07 | P1: Triage pending into activities | Design | Implementing |
+| PEND-08 | P1: Triage pending into activities | Design | Verified |
 | PEND-09 | P1: Triage pending into activities | Design | Pending |
 | PEND-10 | P1: Triage pending into activities | Design | Pending |
 | PAT-01 | P2: Personal pattern customization | Design | Verified |

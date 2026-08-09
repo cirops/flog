@@ -144,13 +144,13 @@ T12
 
 **Done when**:
 
-- [ ] Path layout matches design
-- [ ] Append creates pending row with UUID id, raw, capturedAt
-- [ ] Same-day identical raw while status `pending` returns quiet duplicate (no second row)
-- [ ] `setCaptureStatus` marks promoted/discarded without deleting the row
-- [ ] `listPending` returns only `pending`
-- [ ] Unit tests in `tests/captures-storage.test.ts` cover path, append, dedup, status retain, listPending
-- [ ] Gate check passes: `npm test`
+- [x] Path layout matches design
+- [x] Append creates pending row with UUID id, raw, capturedAt
+- [x] Same-day identical raw while status `pending` returns quiet duplicate (no second row)
+- [x] `setCaptureStatus` marks promoted/discarded without deleting the row
+- [x] `listPending` returns only `pending`
+- [x] Unit tests in `tests/captures-storage.test.ts` cover path, append, dedup, status retain, listPending
+- [x] Gate check passes: `npm test`
 
 **Tests**: unit
 **Gate**: quick
