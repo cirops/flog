@@ -229,11 +229,11 @@ T12
 
 **Done when**:
 
-- [ ] Trailing `_digits` / ticket-like token prefills `id`
-- [ ] No ticket → empty `id`
-- [ ] Branch-create raw yields cleaned description hint; otherwise raw
-- [ ] Unit tests in `tests/captures-prefill.test.ts` cover example `git checkout -b feature/icms-ui_tax4b_120999`, no-ticket case, non-git raw
-- [ ] Gate check passes: `npm test`
+- [x] Trailing `_digits` / ticket-like token prefills `id`
+- [x] No ticket → empty `id`
+- [x] Branch-create raw yields cleaned description hint; otherwise raw
+- [x] Unit tests in `tests/captures-prefill.test.ts` cover example `git checkout -b feature/icms-ui_tax4b_120999`, no-ticket case, non-git raw
+- [x] Gate check passes: `npm test`
 
 **Tests**: unit
 **Gate**: quick
