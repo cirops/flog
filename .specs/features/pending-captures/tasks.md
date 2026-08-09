@@ -337,11 +337,11 @@ T12
 
 **Done when**:
 
-- [ ] `renderWrapperScript` uses `command <root>` and best-effort `flog capture`
-- [ ] Install writes wrappers file + marked rc block; second install does not duplicate blocks
-- [ ] Uninstall removes marked block
-- [ ] Unit tests in `tests/captures-hooks.test.ts` cover render roots, idempotent install, uninstall (temp rc file)
-- [ ] Gate check passes: `npm test`
+- [x] `renderWrapperScript` uses `command <root>` and best-effort `flog capture`
+- [x] Install writes wrappers file + marked rc block; second install does not duplicate blocks
+- [x] Uninstall removes marked block
+- [x] Unit tests in `tests/captures-hooks.test.ts` cover render roots, idempotent install, uninstall (temp rc file)
+- [x] Gate check passes: `npm test`
 
 **Tests**: unit
 **Gate**: quick
