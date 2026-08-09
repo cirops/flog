@@ -363,9 +363,9 @@ T12
 
 **Done when**:
 
-- [ ] Both subcommands callable
-- [ ] Integration test installs against temp rc / config dirs via env overrides and asserts marked block present/absent
-- [ ] Gate check passes: `npm test`
+- [x] Both subcommands callable
+- [x] Integration test installs against temp rc / config dirs via env overrides and asserts marked block present/absent
+- [x] Gate check passes: `npm test`
 
 **Tests**: integration
 **Gate**: full

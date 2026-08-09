@@ -16,6 +16,7 @@ import {
   getInstallRoot
 } from "./config.js";
 import { captureCommand } from "./captures/capture.js";
+import { installHooks, uninstallHooks } from "./captures/hooks.js";
 import { runPendingCli } from "./captures/pending-cli.js";
 import { createTempoDestination } from "./destinations/tempo.js";
 import { addActivity, readDay, readExistingDay, setPeriodTime, undoLastActivity } from "./storage.js";
@@ -232,6 +233,34 @@ export async function main(argv = process.argv): Promise<void> {
       const { config, dataDir } = context();
       const date = options.date ? validateDate(options.date) : todayIso();
       await runPendingCli({ dataDir, config, date });
+    });
+
+  const hook = program.command("hook").description("Install or remove shell capture wrappers.");
+  hook
+    .command("install")
+    .description("Install shell wrappers that capture matching commands.")
+    .option("--rc <path>", "shell rc file to update")
+    .option("--shell <shell>", "zsh or bash", "zsh")
+    .action(async (options: { rc?: string; shell?: string }) => {
+      const shell = options.shell === "bash" ? "bash" : "zsh";
+      const result = await installHooks({
+        rcPath: options.rc ?? process.env.FLOG_HOOK_RC,
+        shell
+      });
+      console.error(`Installed capture hooks in ${result.rcPath}.`);
+    });
+  hook
+    .command("uninstall")
+    .description("Remove shell wrappers installed by flog hook install.")
+    .option("--rc <path>", "shell rc file to update")
+    .option("--shell <shell>", "zsh or bash", "zsh")
+    .action(async (options: { rc?: string; shell?: string }) => {
+      const shell = options.shell === "bash" ? "bash" : "zsh";
+      const result = await uninstallHooks({
+        rcPath: options.rc ?? process.env.FLOG_HOOK_RC,
+        shell
+      });
+      console.error(`Removed capture hooks from ${result.rcPath}.`);
     });
 
   await program.parseAsync(argv);

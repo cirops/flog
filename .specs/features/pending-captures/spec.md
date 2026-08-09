@@ -122,8 +122,8 @@ Manual `flog m` / `flog a` works, but starting work often begins with a shell co
 | CAP-04 | P1: Capture matching commands | Design | Verified |
 | CAP-05 | P1: Capture matching commands | Design | Verified |
 | CAP-06 | P1: Capture matching commands | Design | Verified |
-| CAP-07 | P1: Capture matching commands | Design | Pending |
-| CAP-08 | P1: Capture matching commands | Design | Pending |
+| CAP-07 | P1: Capture matching commands | Design | Verified |
+| CAP-08 | P1: Capture matching commands | Design | Verified |
 | CAP-09 | P1: Capture matching commands | Design | Verified |
 | PEND-01 | P1: Triage pending into activities | Design | Verified |
 | PEND-02 | P1: Triage pending into activities | Design | Verified |
