@@ -16,6 +16,7 @@ import {
   getInstallRoot
 } from "./config.js";
 import { captureCommand } from "./captures/capture.js";
+import { runPendingCli } from "./captures/pending-cli.js";
 import { createTempoDestination } from "./destinations/tempo.js";
 import { addActivity, readDay, readExistingDay, setPeriodTime, undoLastActivity } from "./storage.js";
 import { appendSubmission, hasSubmitted, payloadHash, readSubmissions } from "./submissions.js";
@@ -221,6 +222,16 @@ export async function main(argv = process.argv): Promise<void> {
       if (outcome === "captured") {
         console.error(`Captured pending entry for ${date}.`);
       }
+    });
+
+  program
+    .command("pending")
+    .description("Triage pending captures into morning/afternoon activities.")
+    .option("--date <date>", "triage a different date")
+    .action(async (options: DateOption) => {
+      const { config, dataDir } = context();
+      const date = options.date ? validateDate(options.date) : todayIso();
+      await runPendingCli({ dataDir, config, date });
     });
 
   await program.parseAsync(argv);

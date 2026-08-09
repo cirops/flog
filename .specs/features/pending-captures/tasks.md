@@ -309,13 +309,13 @@ T12
 
 **Done when**:
 
-- [ ] Exported runner used by `src/cli.ts` command registration (thin wire in same task if needed for the command to exist - keep interactive logic in this file)
-- [ ] Empty pending → success message, no crash
-- [ ] Lists only `pending` for target day
-- [ ] Promote/discard call `promote.ts` helpers; cancel leaves statuses unchanged
-- [ ] Mid-promote cancel leaves current item `pending`
-- [ ] Integration test: empty pending for a date; unit/integration for list filtering if prompts are injected or bypassed via exported non-interactive helpers
-- [ ] Gate check passes: `npm test`
+- [x] Exported runner used by `src/cli.ts` command registration (thin wire in same task if needed for the command to exist - keep interactive logic in this file)
+- [x] Empty pending → success message, no crash
+- [x] Lists only `pending` for target day
+- [x] Promote/discard call `promote.ts` helpers; cancel leaves statuses unchanged
+- [x] Mid-promote cancel leaves current item `pending`
+- [x] Integration test: empty pending for a date; unit/integration for list filtering if prompts are injected or bypassed via exported non-interactive helpers
+- [x] Gate check passes: `npm test`
 
 **Tests**: integration
 **Gate**: full
