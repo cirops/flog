@@ -15,6 +15,7 @@ import {
   resolveEnvFile,
   getInstallRoot
 } from "./config.js";
+import { captureCommand } from "./captures/capture.js";
 import { createTempoDestination } from "./destinations/tempo.js";
 import { addActivity, readDay, readExistingDay, setPeriodTime, undoLastActivity } from "./storage.js";
 import { appendSubmission, hasSubmitted, payloadHash, readSubmissions } from "./submissions.js";
@@ -207,6 +208,19 @@ export async function main(argv = process.argv): Promise<void> {
         throw new Error("No activity to undo.");
       }
       console.error(`Removed activity ${result.activityId} from ${result.day.date}.`);
+    });
+
+  program
+    .command("capture [raw...]")
+    .description("Capture a matching shell command as a pending entry for the day.")
+    .option("--date <date>", "capture for a different date")
+    .action(async (rawParts: string[], options: DateOption) => {
+      const { dataDir } = context();
+      const date = options.date ? validateDate(options.date) : todayIso();
+      const outcome = await captureCommand(dataDir, (rawParts ?? []).join(" "), new Date(), date);
+      if (outcome === "captured") {
+        console.error(`Captured pending entry for ${date}.`);
+      }
     });
 
   await program.parseAsync(argv);

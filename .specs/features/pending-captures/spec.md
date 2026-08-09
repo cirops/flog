@@ -117,8 +117,8 @@ Manual `flog m` / `flog a` works, but starting work often begins with a shell co
 | Requirement ID | Story | Phase | Status |
 | -------------- | ----- | ----- | ------ |
 | CAP-01 | P1: Capture matching commands | Design | Verified |
-| CAP-02 | P1: Capture matching commands | Design | Implementing |
-| CAP-03 | P1: Capture matching commands | Design | Implementing |
+| CAP-02 | P1: Capture matching commands | Design | Verified |
+| CAP-03 | P1: Capture matching commands | Design | Verified |
 | CAP-04 | P1: Capture matching commands | Design | Verified |
 | CAP-05 | P1: Capture matching commands | Design | Verified |
 | CAP-06 | P1: Capture matching commands | Design | Verified |

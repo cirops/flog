@@ -7,7 +7,8 @@ export type CaptureOutcome = "captured" | "duplicate" | "no-match";
 export async function captureCommand(
   dataDir: string,
   raw: string,
-  now = new Date()
+  now = new Date(),
+  date = todayIso(now)
 ): Promise<CaptureOutcome> {
   const trimmed = raw.trim().replace(/\s+/g, " ");
   if (!trimmed) {
@@ -19,6 +20,6 @@ export async function captureCommand(
     return "no-match";
   }
 
-  const entry = await appendCapture(dataDir, todayIso(now), trimmed, now);
+  const entry = await appendCapture(dataDir, date, trimmed, now);
   return entry ? "captured" : "duplicate";
 }

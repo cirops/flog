@@ -201,11 +201,11 @@ T12
 
 **Done when**:
 
-- [ ] `flog capture -- git checkout -b feature/x_1` captures for today (or `--date` if exposed; default today)
-- [ ] Empty capture exits non-zero with required-text error
-- [ ] No-match and duplicate exit 0 (wrapper-friendly)
-- [ ] Integration tests in `tests/captures-cli.test.ts` cover capture happy path, empty error, no-match quiet
-- [ ] Gate check passes: `npm test`
+- [x] `flog capture -- git checkout -b feature/x_1` captures for today (or `--date` if exposed; default today)
+- [x] Empty capture exits non-zero with required-text error
+- [x] No-match and duplicate exit 0 (wrapper-friendly)
+- [x] Integration tests in `tests/captures-cli.test.ts` cover capture happy path, empty error, no-match quiet
+- [x] Gate check passes: `npm test`
 
 **Tests**: integration
 **Gate**: full
