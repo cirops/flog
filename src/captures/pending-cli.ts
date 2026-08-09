@@ -15,9 +15,16 @@ export type PendingChoice = {
 };
 
 export type PendingPrompts = {
-  checkbox: typeof checkbox;
-  input: typeof input;
-  select: typeof select;
+  checkbox: (config: {
+    message: string;
+    choices: Array<{ name: string; value: string }>;
+  }) => Promise<string[]>;
+  input: (config: { message: string; default?: string }) => Promise<string>;
+  select: (config: {
+    message: string;
+    choices: Array<{ name: string; value: string }>;
+    default?: string;
+  }) => Promise<string>;
 };
 
 export type RunPendingCliOptions = {

@@ -43,9 +43,14 @@ flog push day [YYYY-MM-DD] [--force]
 flog push week [Wxx|YYYY-Wxx] [--force]
 flog setup
 flog undo
+
+flog capture [--date] -- <raw command...>
+flog pending [--date]
+flog hook install [--rc <path>] [--shell zsh|bash]
+flog hook uninstall [--rc <path>] [--shell zsh|bash]
 ```
 
-Use `--date YYYY-MM-DD` on activity, block, `today`, `review day`, and `push day` commands for retroactive edits. Day review and push commands also accept the date as a positional argument.
+Use `--date YYYY-MM-DD` on activity, block, `today`, `review day`, `push day`, `capture`, and `pending` commands for retroactive edits. Relative `-N` (for example `-1`) expands to `--date` for those same day-scoped commands. Day review and push commands also accept the date as a positional argument.
 
 ## Examples
 
@@ -61,6 +66,31 @@ flog ae 17:30
 flog today
 flog week 2026-W21
 ```
+
+## Pending captures
+
+`flog` can capture matching shell commands as pending day entries, then promote them into normal morning/afternoon activities later. Captures live under the data directory (`captures/YYYY/MM/date.json`) and never appear in Tempo `review` / `push` until promoted.
+
+```bash
+flog hook install                 # add marked wrappers to ~/.zshrc (or --rc / --shell bash)
+flog capture -- git checkout -b feature/icms-ui_120999
+flog pending                      # checkbox → promote | discard | cancel
+flog hook uninstall
+```
+
+Built-in patterns cover `git checkout -b` and `git switch -c`. Extra patterns live in the user-level file next to the Conf store:
+
+```text
+~/.config/flog-nodejs/capture-patterns.json   # Linux default; respects FLOG_CONFIG_DIR
+```
+
+```json
+{
+  "patterns": ["git clone", "t14ss -b"]
+}
+```
+
+Missing file → built-in defaults only. Present file → unique merge of defaults plus your patterns. Examples above capture `git clone …` and `t14ss -b …` the same way as branch creates.
 
 ## Tempo
 

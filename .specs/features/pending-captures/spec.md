@@ -136,7 +136,7 @@ Manual `flog m` / `flog a` works, but starting work often begins with a shell co
 | PEND-09 | P1: Triage pending into activities | Design | Verified |
 | PEND-10 | P1: Triage pending into activities | Design | Verified |
 | PAT-01 | P2: Personal pattern customization | Design | Verified |
-| PAT-02 | P2: Personal pattern customization | Design | Pending |
+| PAT-02 | P2: Personal pattern customization | Design | Verified |
 | PAT-03 | P2: Personal pattern customization | Design | Verified |
 
 **Coverage:** 22 total, 0 mapped to tasks, 22 unmapped

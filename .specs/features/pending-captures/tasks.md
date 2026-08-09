@@ -389,10 +389,10 @@ T12
 
 **Done when**:
 
-- [ ] Commands listed
-- [ ] User-level `capture-patterns.json` path and merge behavior documented
-- [ ] Examples include personal patterns (`git clone`, `t14ss -b`)
-- [ ] Gate check passes: `npm run typecheck && npm test`
+- [x] Commands listed
+- [x] User-level `capture-patterns.json` path and merge behavior documented
+- [x] Examples include personal patterns (`git clone`, `t14ss -b`)
+- [x] Gate check passes: `npm run typecheck && npm test`
 
 **Tests**: none
 **Gate**: build
