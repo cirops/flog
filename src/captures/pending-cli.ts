@@ -1,7 +1,7 @@
 import { checkbox, input, select } from "@inquirer/prompts";
 import { readDay } from "../storage.js";
 import type { FlogConfig, PeriodName } from "../types.js";
-import { defaultPeriodForCapture } from "./period.js";
+import { defaultPeriodForCapture, localHHMMFromCapture } from "./period.js";
 import { prefillFromRaw } from "./prefill.js";
 import { discardCapture, promoteCapture } from "./promote.js";
 import { listPending } from "./storage.js";
@@ -160,10 +160,7 @@ async function promoteOne(options: {
 }
 
 function formatCaptureChoice(entry: CaptureEntry): string {
-  const time = entry.capturedAt.includes("T")
-    ? entry.capturedAt.slice(11, 16)
-    : entry.capturedAt;
-  return `${time}  ${entry.raw}`;
+  return `${localHHMMFromCapture(entry.capturedAt)}  ${entry.raw}`;
 }
 
 function isPromptCancel(error: unknown): boolean {

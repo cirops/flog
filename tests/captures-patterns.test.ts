@@ -3,7 +3,9 @@ import { mkdtemp, rm, writeFile } from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import { afterEach, beforeEach, describe, it } from "node:test";
+import { readFile } from "node:fs/promises";
 import {
+  addUserCapturePattern,
   commandRoots,
   defaultCapturePatterns,
   loadCapturePatterns,
@@ -80,5 +82,38 @@ describe("matchesPattern", () => {
 describe("commandRoots", () => {
   it("returns unique first tokens", () => {
     assert.deepEqual(commandRoots(["git checkout -b", "git switch -c", "t14ss -b"]), ["git", "t14ss"]);
+  });
+});
+
+describe("addUserCapturePattern", () => {
+  it("creates the user file and appends a pattern", async () => {
+    const result = await addUserCapturePattern("git clone");
+    assert.equal(result.added, true);
+    assert.equal(result.pattern, "git clone");
+    assert.equal(result.needsHookReinstall, false);
+    const raw = JSON.parse(await readFile(patternsPath(configDir), "utf8"));
+    assert.deepEqual(raw.patterns, ["git clone"]);
+    const loaded = await loadCapturePatterns();
+    assert.ok(loaded.includes("git clone"));
+  });
+
+  it("is idempotent when the pattern already exists", async () => {
+    await addUserCapturePattern("t14ss -b");
+    const again = await addUserCapturePattern("t14ss -b");
+    assert.equal(again.added, false);
+    assert.equal(again.alreadyPresent, true);
+    assert.equal(again.needsHookReinstall, false);
+    const raw = JSON.parse(await readFile(patternsPath(configDir), "utf8"));
+    assert.deepEqual(raw.patterns, ["t14ss -b"]);
+  });
+
+  it("flags needsHookReinstall when a new command root appears", async () => {
+    const result = await addUserCapturePattern("t14ss -b");
+    assert.equal(result.added, true);
+    assert.equal(result.needsHookReinstall, true);
+  });
+
+  it("rejects empty pattern text", async () => {
+    await assert.rejects(() => addUserCapturePattern("   "), /Pattern text is required/);
   });
 });

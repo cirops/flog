@@ -46,6 +46,7 @@ flog undo
 
 flog capture [--date] -- <raw command...>
 flog pending [--date]
+flog hook add <pattern...>
 flog hook install [--rc <path>] [--shell zsh|bash]
 flog hook uninstall [--rc <path>] [--shell zsh|bash]
 ```
@@ -73,12 +74,14 @@ flog week 2026-W21
 
 ```bash
 flog hook install                 # add marked wrappers to ~/.zshrc (or --rc / --shell bash)
+flog hook add "git clone"         # append to user-level capture-patterns.json
+flog hook add "t14ss -b"          # re-run flog hook install if the command root is new
 flog capture -- git checkout -b feature/icms-ui_120999
 flog pending                      # checkbox → promote | discard | cancel
 flog hook uninstall
 ```
 
-Built-in patterns cover `git checkout -b` and `git switch -c`. Extra patterns live in the user-level file next to the Conf store:
+Built-in patterns cover `git checkout -b` and `git switch -c`. Extra patterns live in the user-level file next to the Conf store (created/updated by `flog hook add`):
 
 ```text
 ~/.config/flog-nodejs/capture-patterns.json   # Linux default; respects FLOG_CONFIG_DIR

@@ -1,5 +1,7 @@
 #!/usr/bin/env node
+import { realpathSync } from "node:fs";
 import path from "node:path";
+import { fileURLToPath } from "node:url";
 import { Command } from "commander";
 import { input, select } from "@inquirer/prompts";
 import ora from "ora";
@@ -17,6 +19,7 @@ import {
 } from "./config.js";
 import { captureCommand } from "./captures/capture.js";
 import { installHooks, uninstallHooks } from "./captures/hooks.js";
+import { addUserCapturePattern } from "./captures/patterns.js";
 import { runPendingCli } from "./captures/pending-cli.js";
 import { createTempoDestination } from "./destinations/tempo.js";
 import { addActivity, readDay, readExistingDay, setPeriodTime, undoLastActivity } from "./storage.js";
@@ -235,7 +238,23 @@ export async function main(argv = process.argv): Promise<void> {
       await runPendingCli({ dataDir, config, date });
     });
 
-  const hook = program.command("hook").description("Install or remove shell capture wrappers.");
+  const hook = program.command("hook").description("Manage shell capture wrappers and patterns.");
+  hook
+    .command("add <pattern...>")
+    .description("Add a pattern to the user-level capture-patterns.json file.")
+    .action(async (patternParts: string[]) => {
+      const pattern = patternParts.join(" ");
+      const result = await addUserCapturePattern(pattern);
+      if (result.alreadyPresent) {
+        console.error(`Pattern already present: ${result.pattern} (${result.path})`);
+        return;
+      }
+      console.error(`Added capture pattern: ${result.pattern}`);
+      console.error(`Wrote ${result.path}`);
+      if (result.needsHookReinstall) {
+        console.error("New command root detected — run: flog hook install");
+      }
+    });
   hook
     .command("install")
     .description("Install shell wrappers that capture matching commands.")
@@ -570,7 +589,19 @@ async function writeEnvUpdates(updates: Record<string, string>): Promise<string 
   return target;
 }
 
-if (import.meta.url === `file://${process.argv[1]}`) {
+function isCliEntry(): boolean {
+  const entry = process.argv[1];
+  if (!entry) {
+    return false;
+  }
+  try {
+    return realpathSync(entry) === realpathSync(fileURLToPath(import.meta.url));
+  } catch {
+    return false;
+  }
+}
+
+if (isCliEntry()) {
   main().catch((error) => {
     console.error(colors.red(error instanceof Error ? error.message : String(error)));
     process.exitCode = 1;

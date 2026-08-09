@@ -58,6 +58,13 @@ describe("flog capture", () => {
 });
 
 describe("flog hook", () => {
+  it("adds a user-level capture pattern via hook add", async () => {
+    const result = await run(["hook", "add", "git", "clone"]);
+    assert.match(result.stderr, /Added capture pattern: git clone/);
+    const raw = JSON.parse(await readFile(path.join(configDir, "capture-patterns.json"), "utf8"));
+    assert.deepEqual(raw.patterns, ["git clone"]);
+  });
+
   it("installs a marked block into a temp rc and removes it on uninstall", async () => {
     const rcPath = path.join(configDir, ".zshrc");
     await writeFile(rcPath, "# user rc\n", "utf8");

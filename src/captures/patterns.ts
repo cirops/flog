@@ -1,4 +1,4 @@
-import { readFile } from "node:fs/promises";
+import { mkdir, readFile, rename, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { createConfigStore } from "../config.js";
 import type { CapturePatternsFile } from "./types.js";
@@ -14,27 +14,57 @@ export function patternsPath(configDir?: string): string {
   return path.join(dir, "capture-patterns.json");
 }
 
+export type AddUserPatternResult = {
+  path: string;
+  pattern: string;
+  added: boolean;
+  alreadyPresent: boolean;
+  needsHookReinstall: boolean;
+};
+
 export async function loadCapturePatterns(configDir?: string): Promise<string[]> {
-  const file = patternsPath(configDir);
-  let userPatterns: string[] = [];
-  try {
-    const raw = await readFile(file, "utf8");
-    let parsed: unknown;
-    try {
-      parsed = JSON.parse(raw);
-    } catch (error) {
-      const detail = error instanceof Error ? error.message : String(error);
-      throw new Error(`Invalid JSON in ${file}: ${detail}`);
-    }
-    userPatterns = normalizePatternsFile(parsed, file);
-  } catch (error) {
-    if ((error as NodeJS.ErrnoException).code === "ENOENT") {
-      return defaultCapturePatterns();
-    }
-    throw error;
+  const userPatterns = await readUserPatterns(configDir);
+  return uniqueStrings([...defaultCapturePatterns(), ...userPatterns]);
+}
+
+export async function addUserCapturePattern(
+  pattern: string,
+  configDir?: string
+): Promise<AddUserPatternResult> {
+  const normalized = normalizeCommand(pattern);
+  if (!normalized) {
+    throw new Error("Pattern text is required.");
   }
 
-  return uniqueStrings([...defaultCapturePatterns(), ...userPatterns]);
+  const file = patternsPath(configDir);
+  const before = await loadCapturePatterns(configDir);
+  const rootsBefore = new Set(commandRoots(before));
+  const userPatterns = await readUserPatterns(configDir);
+
+  if (before.includes(normalized) || userPatterns.includes(normalized)) {
+    return {
+      path: file,
+      pattern: normalized,
+      added: false,
+      alreadyPresent: true,
+      needsHookReinstall: false
+    };
+  }
+
+  const nextUser = uniqueStrings([...userPatterns, normalized]);
+  await writePatternsFile(file, nextUser);
+
+  const after = uniqueStrings([...defaultCapturePatterns(), ...nextUser]);
+  const rootsAfter = commandRoots(after);
+  const needsHookReinstall = rootsAfter.some((root) => !rootsBefore.has(root));
+
+  return {
+    path: file,
+    pattern: normalized,
+    added: true,
+    alreadyPresent: false,
+    needsHookReinstall
+  };
 }
 
 export function matchesPattern(raw: string, patterns: string[]): boolean {
@@ -67,6 +97,34 @@ export function commandRoots(patterns: string[]): string[] {
 
 function normalizeCommand(value: string): string {
   return value.trim().replace(/\s+/g, " ");
+}
+
+async function readUserPatterns(configDir?: string): Promise<string[]> {
+  const file = patternsPath(configDir);
+  try {
+    const raw = await readFile(file, "utf8");
+    let parsed: unknown;
+    try {
+      parsed = JSON.parse(raw);
+    } catch (error) {
+      const detail = error instanceof Error ? error.message : String(error);
+      throw new Error(`Invalid JSON in ${file}: ${detail}`);
+    }
+    return normalizePatternsFile(parsed, file).map((item) => normalizeCommand(item)).filter(Boolean);
+  } catch (error) {
+    if ((error as NodeJS.ErrnoException).code === "ENOENT") {
+      return [];
+    }
+    throw error;
+  }
+}
+
+async function writePatternsFile(file: string, patterns: string[]): Promise<void> {
+  await mkdir(path.dirname(file), { recursive: true });
+  const temp = `${file}.tmp`;
+  const body: CapturePatternsFile = { patterns };
+  await writeFile(temp, `${JSON.stringify(body, null, 2)}\n`, "utf8");
+  await rename(temp, file);
 }
 
 function normalizePatternsFile(parsed: unknown, file: string): string[] {
