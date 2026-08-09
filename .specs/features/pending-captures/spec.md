@@ -129,7 +129,7 @@ Manual `flog m` / `flog a` works, but starting work often begins with a shell co
 | PEND-02 | P1: Triage pending into activities | Design | Pending |
 | PEND-03 | P1: Triage pending into activities | Design | Pending |
 | PEND-04 | P1: Triage pending into activities | Design | Verified |
-| PEND-05 | P1: Triage pending into activities | Design | Pending |
+| PEND-05 | P1: Triage pending into activities | Design | Verified |
 | PEND-06 | P1: Triage pending into activities | Design | Implementing |
 | PEND-07 | P1: Triage pending into activities | Design | Implementing |
 | PEND-08 | P1: Triage pending into activities | Design | Verified |

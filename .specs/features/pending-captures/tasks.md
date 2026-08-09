@@ -255,10 +255,10 @@ T12
 
 **Done when**:
 
-- [ ] Timestamp before `afternoon.start` → `morning`
-- [ ] Timestamp at/after `afternoon.start` → `afternoon`
-- [ ] Unit tests in `tests/captures-period.test.ts` cover both sides of the boundary
-- [ ] Gate check passes: `npm test`
+- [x] Timestamp before `afternoon.start` → `morning`
+- [x] Timestamp at/after `afternoon.start` → `afternoon`
+- [x] Unit tests in `tests/captures-period.test.ts` cover both sides of the boundary
+- [x] Gate check passes: `npm test`
 
 **Tests**: unit
 **Gate**: quick
