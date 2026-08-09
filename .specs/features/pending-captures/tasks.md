@@ -115,14 +115,14 @@ T12
 
 **Done when**:
 
-- [ ] Defaults include `git checkout -b` and `git switch -c`
-- [ ] Missing user file → defaults only (no throw)
-- [ ] User file patterns merge uniquely with defaults
-- [ ] `matchesPattern` implements literal prefix rule from design
-- [ ] `commandRoots` returns unique first tokens
-- [ ] Corrupt JSON throws a clear error
-- [ ] Unit tests in `tests/captures-patterns.test.ts` cover defaults, merge, missing file, match/non-match, roots, corrupt JSON
-- [ ] Gate check passes: `npm test`
+- [x] Defaults include `git checkout -b` and `git switch -c`
+- [x] Missing user file → defaults only (no throw)
+- [x] User file patterns merge uniquely with defaults
+- [x] `matchesPattern` implements literal prefix rule from design
+- [x] `commandRoots` returns unique first tokens
+- [x] Corrupt JSON throws a clear error
+- [x] Unit tests in `tests/captures-patterns.test.ts` cover defaults, merge, missing file, match/non-match, roots, corrupt JSON
+- [x] Gate check passes: `npm test`
 
 **Tests**: unit
 **Gate**: quick

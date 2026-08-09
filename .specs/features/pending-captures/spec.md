@@ -120,8 +120,8 @@ Manual `flog m` / `flog a` works, but starting work often begins with a shell co
 | CAP-02 | P1: Capture matching commands | Design | Pending |
 | CAP-03 | P1: Capture matching commands | Design | Pending |
 | CAP-04 | P1: Capture matching commands | Design | Pending |
-| CAP-05 | P1: Capture matching commands | Design | Pending |
-| CAP-06 | P1: Capture matching commands | Design | Pending |
+| CAP-05 | P1: Capture matching commands | Design | Verified |
+| CAP-06 | P1: Capture matching commands | Design | Verified |
 | CAP-07 | P1: Capture matching commands | Design | Pending |
 | CAP-08 | P1: Capture matching commands | Design | Pending |
 | CAP-09 | P1: Capture matching commands | Design | Implementing |
@@ -135,9 +135,9 @@ Manual `flog m` / `flog a` works, but starting work often begins with a shell co
 | PEND-08 | P1: Triage pending into activities | Design | Pending |
 | PEND-09 | P1: Triage pending into activities | Design | Pending |
 | PEND-10 | P1: Triage pending into activities | Design | Pending |
-| PAT-01 | P2: Personal pattern customization | Design | Pending |
+| PAT-01 | P2: Personal pattern customization | Design | Verified |
 | PAT-02 | P2: Personal pattern customization | Design | Pending |
-| PAT-03 | P2: Personal pattern customization | Design | Pending |
+| PAT-03 | P2: Personal pattern customization | Design | Verified |
 
 **Coverage:** 22 total, 0 mapped to tasks, 22 unmapped
 
