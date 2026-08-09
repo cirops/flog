@@ -127,14 +127,14 @@ Manual `flog m` / `flog a` works, but starting work often begins with a shell co
 | CAP-09 | P1: Capture matching commands | Design | Verified |
 | PEND-01 | P1: Triage pending into activities | Design | Pending |
 | PEND-02 | P1: Triage pending into activities | Design | Pending |
-| PEND-03 | P1: Triage pending into activities | Design | Pending |
+| PEND-03 | P1: Triage pending into activities | Design | Verified |
 | PEND-04 | P1: Triage pending into activities | Design | Verified |
 | PEND-05 | P1: Triage pending into activities | Design | Verified |
-| PEND-06 | P1: Triage pending into activities | Design | Implementing |
-| PEND-07 | P1: Triage pending into activities | Design | Implementing |
+| PEND-06 | P1: Triage pending into activities | Design | Verified |
+| PEND-07 | P1: Triage pending into activities | Design | Verified |
 | PEND-08 | P1: Triage pending into activities | Design | Verified |
 | PEND-09 | P1: Triage pending into activities | Design | Pending |
-| PEND-10 | P1: Triage pending into activities | Design | Pending |
+| PEND-10 | P1: Triage pending into activities | Design | Verified |
 | PAT-01 | P2: Personal pattern customization | Design | Verified |
 | PAT-02 | P2: Personal pattern customization | Design | Pending |
 | PAT-03 | P2: Personal pattern customization | Design | Verified |

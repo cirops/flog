@@ -280,12 +280,12 @@ T12
 
 **Done when**:
 
-- [ ] Promote writes activity with confirmed id/description/period; marks `promoted`; retains raw row
-- [ ] Missing day worklog is created via existing `addActivity`/`readDay` behavior
-- [ ] Discard marks `discarded`, no activity
-- [ ] Cancel is CLI-level (no partial write in this module - promote is all-or-nothing per call)
-- [ ] Unit tests cover promote → activity + status, discard → status only, and that Tempo payload builder still ignores captures (build from day only)
-- [ ] Gate check passes: `npm test`
+- [x] Promote writes activity with confirmed id/description/period; marks `promoted`; retains raw row
+- [x] Missing day worklog is created via existing `addActivity`/`readDay` behavior
+- [x] Discard marks `discarded`, no activity
+- [x] Cancel is CLI-level (no partial write in this module - promote is all-or-nothing per call)
+- [x] Unit tests cover promote → activity + status, discard → status only, and that Tempo payload builder still ignores captures (build from day only)
+- [x] Gate check passes: `npm test`
 
 **Tests**: unit
 **Gate**: quick
