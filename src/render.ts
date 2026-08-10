@@ -114,6 +114,14 @@ export function renderPayloadHuman(
     }
     lines.push("");
   }
+
+  const totalMinutes = payloads.reduce((total, payload) => {
+    const seconds = payload.body.timeSpentSeconds;
+    return total + (typeof seconds === "number" && Number.isFinite(seconds) ? Math.round(seconds / 60) : 0);
+  }, 0)
+
+  lines.push(`Total billable time: ${formatDuration(totalMinutes)}`);
+
   return lines.join("\n").trimEnd();
 }
 
