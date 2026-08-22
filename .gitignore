@@ -30,3 +30,4 @@ yarn-error.log*
 
 # AI Agents
 .specs
+.claude/settings.local.json
